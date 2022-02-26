@@ -9,6 +9,9 @@ pymysql = "*"
 flask-bootstrap = "*"
 flask-wtf = "*"
 wtforms = "*"
+flask-login = "*"
+email-validator = "*"
+flask-script = "==2.0.5"
 
 [dev-packages]
 
