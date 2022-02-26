@@ -1,33 +1,19 @@
-<!doctype html>
-<title>TC巧鋪</title>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">TC巧鋪</a>
-        <a class="navbar-brand" href="/">商品列表</a>
-    </nav>
-
-<!--    <div class="blog-body">-->
-<!--    </div>-->
-
+{% extends "layout.html" %}
     {% block body %}
+    <img class="display" src="https://cdn.store-assets.com/s/632442/f/5870151.jpeg?width=1500&format=webp">
+    <div>TC巧舖的巧克力，去年拿下英國皇家學院巧克力大賽（AOC）銀牌，前年還摘下世界巧克力大賽（ICA）亞太區金牌,兩年前，麵包大師吳寶春造訪TC巧舖，一吃到巧克力薄片竟愛不釋手：「巧克力一入口，便釋出令人舒坦的微酸，而入口即化的口感更令人難忘。」在吳寶春推文下，TC巧克力一路紅到日本，識貨的日客甚至慕名來台造訪。(遠見及天下雜誌)</div>
     <div class="container">
+        <div class="row row-cols-4">
         {% for items in data %}
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
+                <div class="card" style="width: 15rem;">
+                    <a href ="{{ url_for('show_item', product_ID=items.product_ID)}}"> <img src="{{items.picture_URL}}" class="card-img-top" alt="..."></a>
                 <div class="card-body">
-                    <a href="{{ url_for('show_item')}}" class="card-link">{{items.product_name}}</a>
+                    <a href="{{ url_for('show_item', product_ID=items.product_ID)}}" class="card-link">{{items.product_name}}</a>
                     <br/>
-                <a href="{{ url_for('show_item')}}" class="card-link">價格:{{items.product_price}}</a>
+                <a href="{{ url_for('show_item', product_ID=items.product_ID)}}" class="card-link">價格:{{items.product_price}}</a>
+                </div>
                 </div>
         {% endfor %}
+            </div>
     </div>
     {% endblock %}
-    </div>
-</div>

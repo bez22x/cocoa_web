@@ -1,14 +1,44 @@
-<!doctype html>
-<title>TC巧鋪</title>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">TC巧鋪</a>
-    </nav>
-
+{% extends "layout.html" %}
+    {% block body %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+        <div class="row">
+            <div class="col">
+               <img class='product' src='{{ item.picture_URL }}'>
+            </div>
+            <div class="col">
+                <div>
+                    {{ item.product_name }}
+                </div>
+                <div>
+                    NT$ {{ item.product_price }}
+                </div>
+                <div>
+                    <input type="number" value="1">
+                </div>
+                <br/>
+                <div>
+                    <button type="button" class="btn btn-outline-secondary">加入購物車</button>
+                </div>
+                <div>
+                    {{ item.product_description }}
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            您可能會喜歡
+        </div>
+        <div class="row row-cols-4">
+            {% for items in data %}
+                <div class="card" style="width: 15rem;">
+                    <a href ="{{ url_for('show_item', product_ID=items.product_ID)}}"> <img src="{{items.picture_URL}}" class="card-img-top" alt="..."></a>
+                <div class="card-body">
+                    <a href="{{ url_for('show_item', product_ID=items.product_ID)}}" class="card-link">{{items.product_name}}</a>
+                    <br/>
+                <a href="{{ url_for('show_item', product_ID=items.product_ID)}}" class="card-link">價格:{{items.product_price}}</a>
+                </div>
+                </div>
+            {% endfor %}
+            </div>
+    </div>
+    {% endblock %}
