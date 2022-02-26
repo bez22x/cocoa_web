@@ -3,6 +3,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
+
 class Product(db.Model):
     __tablename__ = 'product'
     product_ID = db.Column(db.Integer, primary_key=True)
@@ -10,6 +11,7 @@ class Product(db.Model):
     product_price = db.Column(db.Integer)
     picture_URL = db.Column(db.Text)
     product_description = db.Column(db.Text)
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
@@ -19,12 +21,13 @@ class User(UserMixin, db.Model):
     name = db.Column(db.Text)
     address = db.Column(db.Text, nullable=True)
     created_on = db.Column(db.DateTime, index=False, unique=False, nullable=True)
-    last_login = db.Column(db.DateTime, index=False, unique=False, nullable=True)
 
-    # def __init__(self, title=None, text=None):
-    #     self.title = title
-    #     self.text = text
-    #     self.created_at = datetime.utcnow()
+    def __init__(self, email=None, password=None, name=None, address=None):
+        self.email = email
+        self.password = password
+        self.name = name
+        self.address = address
+        self.created_on = datetime.utcnow()
 
     def set_password(self, password):
         self.password = generate_password_hash(password, method="sha256")

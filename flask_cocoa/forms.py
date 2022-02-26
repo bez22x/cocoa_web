@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
 
 
 class SignupForm(FlaskForm):
-    """User Sign-up Form."""
+    # User Sign-up Form
 
     name = StringField("姓名", validators=[DataRequired()])
     email = StringField(
@@ -35,10 +35,10 @@ class SignupForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    """User Log-in Form."""
+    # User Log-in Form
 
     email = StringField(
-        "Email", validators=[DataRequired(), Email(message="Enter a valid email.")]
+        "Email", validators=[DataRequired(), Email(message="輸入email.")]
     )
     password = PasswordField("Password", validators=[DataRequired()])
-    submit = SubmitField("Log In")
+    submit = SubmitField("登入")

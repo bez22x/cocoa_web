@@ -11,21 +11,10 @@
       <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="logo"/>
     </div>
 
-    <h1>建立您的專屬會員帳戶</h1>
+    <h1>會員登入</h1>
 
-    <form method="POST" action="/signup">
+    <form method="POST" action="/login">
       {{ form.csrf_token }}
-
-      <fieldset class="name">
-        {{ form.name.label }}
-        {{ form.name(placeholder='您的名字') }}
-        {% if form.name.errors %}
-          <ul class="errors">
-            {% for error in form.email.errors %}
-              <li>{{ error }}</li>{% endfor %}
-          </ul>
-        {% endif %}
-      </fieldset>
 
       <fieldset class="email">
         {{ form.email.label }}
@@ -41,7 +30,7 @@
       <fieldset class="password">
         {{ form.password.label }}
         {{ form.password }}
-        {% if form.password.errors %}
+        {% if form.email.errors %}
           <ul class="errors">
             {% for error in form.password.errors %}
               <li>{{ error }}</li>{% endfor %}
@@ -49,24 +38,12 @@
         {% endif %}
       </fieldset>
 
-      <fieldset class="confirm">
-        {{ form.confirm.label }}
-        {{ form.confirm }}
-        {% if form.confirm.errors %}
-          <ul class="errors">
-            {% for error in form.confirm.errors %}
-              <li>{{ error }}</li>{% endfor %}
-          </ul>
-        {% endif %}
-      </fieldset>
-
-      <fieldset class="address">
-        {{ form.address.label }}
-        {{ form.address }}
-      </fieldset>
-
       <div class="submit-button">
         {{ form.submit }}
+      </div>
+
+      <div class="login-signup">
+        <span>還沒有帳號嗎? <a href="{{ url_for('signup') }}">註冊帳號</a></span>
       </div>
 
     </form>
