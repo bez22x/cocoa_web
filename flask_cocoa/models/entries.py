@@ -37,3 +37,19 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return "<User {}>".format(self.username)
+
+class Order(db.Model):
+    __tablename__ = 'order'
+    order_id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.BigInteger, db.ForeignKey('product.product_ID'))
+    transaction_id = db.Column(db.String(50))
+    quantity = db.Column(db.Integer)
+    created_on = db.Column(db.DateTime, index=False, unique=False, nullable=True)
+
+    def __init__(self, product_id, transaction_id, quantity):
+        self.product_id = product_id
+        self.transaction_id = transaction_id
+        self.quantity = quantity
+        self.created_on = datetime.utcnow()
+
+

@@ -4,9 +4,10 @@ from flask import request, redirect, url_for, render_template, flash, session
 from flask_cocoa import app
 from flask_cocoa import db
 from flask_cocoa.forms import SignupForm, LoginForm
-from flask_cocoa.models.entries import Product, User
+from flask_cocoa.models.entries import Product, User, Order
 from flask_login import current_user, login_user, login_required, logout_user
 from flask_cocoa import login_manager
+import uuid
 
 
 @app.route('/')
@@ -114,6 +115,22 @@ def del_product(item_id):
     session['all_total_quantity'] = all_total_quantity
     session['all_total_price'] = all_total_price
     return redirect(request.referrer)
+
+@app.route('/check_out')
+def check_out():
+    transaction_id = uuid.uuid4()
+    for key, value in session['cart_item'].items():
+        order = Order(
+            product_id=int(key),
+            transaction_id=transaction_id,
+            quantity=int(session['cart_item'][key]['quantity'])
+        )
+        db.session.add(order)
+        db.session.commit()
+    del session['cart_item']
+    del session['all_total_quantity']
+    del session['all_total_price']
+    return render_template('entries/check_out.html')
 
 
 @app.route('/signup', methods=["GET", "POST"])

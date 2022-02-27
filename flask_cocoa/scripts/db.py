@@ -1,6 +1,6 @@
 from flask_script import Command
 from flask_cocoa import db
-from flask_cocoa.models.entries import User
+from flask_cocoa.models.entries import User, Order
 
 
 class InitDB(Command):
