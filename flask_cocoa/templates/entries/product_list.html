@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <a href="{{ url_for('show_item', product_ID=item.product_ID)}}" class="card-link">{{item.product_name}}</a>
                     <br/>
-                <a href="{{ url_for('show_item', product_ID=item.product_ID)}}" class="card-link">價格:{{item.product_price}}</a>
+                <a href="{{ url_for('show_item', product_ID=item.product_ID)}}" class="card-link">NT&#36; {{item.product_price}}</a>
                 </div>
                 </div>
         {% endfor %}

@@ -27,7 +27,15 @@
                     <a class="nav-link" href="/hot_list">熱銷商品</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/shopping_car">購物車</a>
+                    <a class="nav-link" href="/shopping_cart">購物車
+                        <span class="badge rounded-pill bg-secondary">
+                            {% if 'cart_item' in session %}
+                                {{ session['cart_item'] }}
+                            {% else %}
+                                {{ 0 }}
+                            {% endif %}
+                        </span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/signup">註冊帳號</a>

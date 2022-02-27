@@ -12,13 +12,13 @@
                 <div>
                     NT$ {{ item.product_price }}
                 </div>
-                <div>
-                    <input type="number" value="1">
-                </div>
+                <form method='post', action="{{ url_for('add_cart') }}">
+                    <input name='quantity' type="number" value="1">
                 <br/>
                 <div>
-                    <button type="button" class="btn btn-outline-secondary">加入購物車</button>
+                    <button type="submit" class="btn btn-outline-secondary">加入購物車</button>
                 </div>
+                </form>
                 <div>
                     {{ item.product_description }}
                 </div>

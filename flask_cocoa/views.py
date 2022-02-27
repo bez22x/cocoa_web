@@ -32,9 +32,18 @@ def show_hot():
     return render_template('entries/hot_list.html', items=items)
 
 
-@app.route('/shopping_car')
-def show_shopping_car():
-    return 'no post'
+@app.route('/shopping_cart')
+def show_shopping_cart():
+    items = Product.query.all()[:5]
+    return render_template('entries/shopping_cart.html', items=items)
+
+@app.route('/add_cart', methods=["POST"])
+def add_cart():
+    if 'cart_item' not in session:
+        session['cart_item'] = 0
+    session['cart_item'] += int(request.form['quantity'])
+    return redirect(request.referrer)
+
 
 
 @app.route('/signup', methods=["GET", "POST"])

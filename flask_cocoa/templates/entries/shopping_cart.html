@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block pagestyles %}
+  <link href="{{ url_for('static', filename='css/account.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+	<div id="shopping-cart">
+		<div class="txt-heading">您的購物車</div>
+			<table class="tbl-cart" cellpadding="10" cellspacing="1">
+			<tbody>
+				<tr>
+					<th style="text-align:left;">商品名稱</th>
+					<th style="text-align:right;" width="5%">數量</th>
+					<th style="text-align:right;" width="10%">單價</th>
+					<th style="text-align:right;" width="10%">價錢</th>
+					<th style"text-align:center;" width="5%">刪除</th>
+				</tr>
+				{% for items in items %}
+				<tr>
+						<td><img src="{{items.picture_URL}}" class="cart" />{{ items.product_name }}</td>
+						<td style="text-align:right;">{{ 4 }}</td>
+						<td  style="text-align:right;">&#36; {{ 456 }}</td>
+						<td  style="text-align:right;">&#36; {{ 100 }}</td>
+						<td style="text-align:center;">
+								<img src="/static/img/icon-delete.png" alt="Remove Item" />
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+				<tr>
+					<td colspan="1" align="right">Total:</td>
+					<td align="right">{{ 5 }}</td>
+					<td align="right" colspan="2"><strong>&#36; {{ 5000 }}</strong>
+					<td></td>
+				</tr>
+
+			</tbody>
+			</table>
+	</div>
+{% endblock  %}
