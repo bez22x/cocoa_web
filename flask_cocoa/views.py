@@ -38,6 +38,7 @@ def show_hot():
 def show_shopping_cart():
     return render_template('entries/shopping_cart.html')
 
+
 @app.route('/add_cart', methods=["POST"])
 def add_cart():
     item_quantity = int(request.form['quantity'])
@@ -46,8 +47,8 @@ def add_cart():
         item = Product.query.filter_by(product_ID=item_id).first()
         item_dict = {
             item_id: {'name': item.product_name, 'id': item.product_ID, 'picture': item.picture_URL,
-                         'quantity': item_quantity, 'price': item.product_price,
-                         'total_price': item_quantity * item.product_price}}
+                      'quantity': item_quantity, 'price': item.product_price,
+                      'total_price': item_quantity * item.product_price}}
 
         all_total_price = 0
         all_total_quantity = 0
@@ -81,6 +82,39 @@ def add_cart():
         return redirect(request.referrer)
     else:
         return '購物車添加錯誤'
+
+
+@app.route('/empty_cart')
+def empty_cart():
+    del session['cart_item']
+    del session['all_total_quantity']
+    del session['all_total_price']
+    return redirect(request.referrer)
+
+
+@app.route('/del_product/<item_id>')
+def del_product(item_id):
+    all_total_price = 0
+    all_total_quantity = 0
+    session.modified = True
+
+    for product_id, item in session['cart_item'].items():
+        if product_id == item_id:
+            session['cart_item'].pop(product_id, None)
+            if 'cart_item' in session:
+                for key, value in session['cart_item'].items():
+                    individual_quantity = int(session['cart_item'][key]['quantity'])
+                    individual_price = int(session['cart_item'][key]['total_price'])
+                    all_total_quantity = all_total_quantity + individual_quantity
+                    all_total_price = all_total_price + individual_price
+            break
+
+    if all_total_quantity == 0:
+        return redirect(url_for('empty_cart'))
+    session['all_total_quantity'] = all_total_quantity
+    session['all_total_price'] = all_total_price
+    return redirect(request.referrer)
+
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
@@ -123,11 +157,13 @@ def login():
         form=form
     )
 
+
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for("login"))
+
 
 @login_manager.user_loader
 def load_user(user_id):
