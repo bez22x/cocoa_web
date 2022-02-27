@@ -30,7 +30,7 @@
                     <a class="nav-link" href="/shopping_cart">購物車
                         <span class="badge rounded-pill bg-secondary">
                             {% if 'cart_item' in session %}
-                                {{ session['cart_item'] }}
+                                {{ session['all_total_quantity'] }}
                             {% else %}
                                 {{ 0 }}
                             {% endif %}

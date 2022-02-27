@@ -14,6 +14,7 @@
                 </div>
                 <form method='post', action="{{ url_for('add_cart') }}">
                     <input name='quantity' type="number" value="1">
+                    <input type="hidden" name="id" value="{{ item.product_ID }}"/>
                 <br/>
                 <div>
                     <button type="submit" class="btn btn-outline-secondary">加入購物車</button>
