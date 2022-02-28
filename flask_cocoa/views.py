@@ -16,10 +16,10 @@ def home_page():
     return render_template('entries/index.html', data=data)
 
 
-@app.route('/<string:product_ID>')
+@app.route('/<int:product_ID>')
 def show_item(product_ID):
-    item = Product.query.filter_by(product_ID=product_ID).first()
-    like_item = mongo.db.if_you_like.find_one({'product_id': int(product_ID)})
+    item = Product.query.filter_by(product_ID=str(product_ID)).first()
+    like_item = mongo.db.if_you_like.find_one({'product_id': product_ID})
     like_items = [Product.query.filter_by(product_ID=product_id).first() for product_id in like_item['collaborative_filtering_list']]
     return render_template('entries/product.html', item=item, data=like_items)
 
