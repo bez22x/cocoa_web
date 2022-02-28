@@ -15,9 +15,20 @@ show collections
 ## Docker:
 * Run MongoDB
 ```sh
-docker run --name some-mongo -p 27017:27017 -v ${PWD}/db_storage/mongoDB:/data/db -d mongo
+docker run --name some-mongo -p 27017:27017 -v ${PWD}/db_storage/mongoDB/data:/data/db -d mongo
+```
+* Run Mysql
+```sh
+docker run -p 3307:3306 -v ${PWD}/db_storage/mysql/data:/var/lib/mysql --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d init-mysql
 ```
 
+## Docker-Compose
+```
+docker-compose up
+docker-compose down
+```
+
+pipenv lock -r > requirements.txt
 
 ## Reference:
 * Mongo
