@@ -2,7 +2,7 @@ from typing import Dict, Any, Union
 
 from flask import request, redirect, url_for, render_template, flash, session
 from flask_cocoa import app
-from flask_cocoa import db
+from flask_cocoa import db, mongo
 from flask_cocoa.forms import SignupForm, LoginForm
 from flask_cocoa.models.entries import Product, User, Order
 from flask_login import current_user, login_user, login_required, logout_user
@@ -16,11 +16,12 @@ def home_page():
     return render_template('entries/index.html', data=data)
 
 
-@app.route('/<product_ID>')
+@app.route('/<string:product_ID>')
 def show_item(product_ID):
     item = Product.query.filter_by(product_ID=product_ID).first()
-    data = Product.query.all()[:4]
-    return render_template('entries/product.html', item=item, data=data)
+    like_item = mongo.db.if_you_like.find_one({'product_id': int(product_ID)})
+    like_items = [Product.query.filter_by(product_ID=product_id).first() for product_id in like_item['collaborative_filtering_list']]
+    return render_template('entries/product.html', item=item, data=like_items)
 
 
 @app.route('/product_list')
@@ -31,8 +32,10 @@ def show_entries():
 
 @app.route('/hot_list')
 def show_hot():
-    items = Product.query.all()[:5]
-    return render_template('entries/hot_list.html', items=items)
+    hot_items = mongo.db.hot_commodity.find().sort('amount', -1)
+    hot_items = hot_items[:5]
+    hot_items = [Product.query.filter_by(product_ID=item['product_id']).first() for item in hot_items]
+    return render_template('entries/hot_list.html', items=hot_items)
 
 
 @app.route('/shopping_cart')
