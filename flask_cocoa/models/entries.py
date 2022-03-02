@@ -41,15 +41,16 @@ class User(UserMixin, db.Model):
 class Order(db.Model):
     __tablename__ = 'order'
     order_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     product_id = db.Column(db.BigInteger, db.ForeignKey('product.product_ID'))
     transaction_id = db.Column(db.String(50))
     quantity = db.Column(db.Integer)
     created_on = db.Column(db.DateTime, index=False, unique=False, nullable=True)
 
-    def __init__(self, product_id, transaction_id, quantity):
+    def __init__(self, product_id, transaction_id, quantity, user_id):
         self.product_id = product_id
         self.transaction_id = transaction_id
         self.quantity = quantity
         self.created_on = datetime.utcnow()
-
+        self.user_id = user_id
 

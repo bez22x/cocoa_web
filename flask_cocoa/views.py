@@ -120,13 +120,15 @@ def del_product(item_id):
     return redirect(request.referrer)
 
 @app.route('/check_out')
+@login_required
 def check_out():
     transaction_id = uuid.uuid4()
     for key, value in session['cart_item'].items():
         order = Order(
             product_id=int(key),
             transaction_id=transaction_id,
-            quantity=int(session['cart_item'][key]['quantity'])
+            quantity=int(session['cart_item'][key]['quantity']),
+            user_id=current_user.get_id()
         )
         db.session.add(order)
         db.session.commit()
