@@ -1,7 +1,7 @@
 import os
 
-# os.environ['MYSQL_PORT'] = '3308'
-# os.environ['MONGO_PORT'] = '27018'
+os.environ['MYSQL_PORT'] = '3308'
+os.environ['MONGO_PORT'] = '27018'
 
 mysql_host = os.environ.get('MYSQL_HOST', 'localhost')
 mysql_password = os.environ.get('MYSQL_PASSWORD', 'my-secret-pw')

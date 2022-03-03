@@ -30,13 +30,13 @@ class User(UserMixin, db.Model):
         self.created_on = datetime.utcnow()
 
     def set_password(self, password):
-        self.password = generate_password_hash(password, method="sha256")
+        self.password = generate_password_hash(password, method='sha256')
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
     def __repr__(self):
-        return "<User {}>".format(self.username)
+        return '<User {}>'.format(self.username)
 
 class Order(db.Model):
     __tablename__ = 'order'

@@ -19,10 +19,12 @@ width : 55%;
 min-height: 100;
 margin:  2%;
 }
+
 .card-img-top {
 height: 150px;
 object-fit: cover;
 }
+
 .card-body{
 box-shadow: 0 0 20px 7px rgba(0,0,0,0.1);
 }
@@ -45,6 +47,7 @@ background-color:#dec2d0;
 .text-center{
 background-color:#d5a6bd;
 }
+
 .tbl-cart{
 background-color:#ede2e7;
 }
