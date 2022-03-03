@@ -5,20 +5,21 @@
 {% endblock %}
 
 {% block body %}
+
   <div class="form-wrapper">
 
     <div class="logo">
       <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="logo"/>
     </div>
-
-    <h1>會員登入</h1>
+    <br/>
+    <font color="#5d4250"> <h4>會員登入</h4></font>
 
     <form method="POST" action="/login">
       {{ form.csrf_token }}
-
+    <br/>
       <fieldset class="email">
         {{ form.email.label }}
-        {{ form.email(placeholder='youremail@example.com') }}
+        &emsp;{{ form.email(placeholder='youremail@example.com') }}
         {% if form.email.errors %}
           <ul class="errors">
             {% for error in form.email.errors %}
@@ -26,10 +27,10 @@
           </ul>
         {% endif %}
       </fieldset>
-
+    <br/>
       <fieldset class="password">
         {{ form.password.label }}
-        {{ form.password }}
+        &emsp;{{ form.password }}
         {% if form.email.errors %}
           <ul class="errors">
             {% for error in form.password.errors %}
@@ -37,13 +38,23 @@
           </ul>
         {% endif %}
       </fieldset>
-
+    <br/>
       <div class="submit-button">
-        {{ form.submit }}
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{ form.submit }}
       </div>
-
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class="flash">
+              {% for message in messages %}
+                <li>{{ messages }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+      <br/>
       <div class="login-signup">
-        <span>還沒有帳號嗎? <a href="{{ url_for('signup') }}">註冊帳號</a></span>
+        <span><font color="#5d4250"><h6>還沒有帳號嗎? </h6></font>
+          <a href="{{ url_for('signup') }}" class="link-success">註冊帳號</a></span>
       </div>
 
     </form>

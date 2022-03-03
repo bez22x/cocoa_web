@@ -6,9 +6,9 @@
                 <div class="card" style="width: 15rem;">
                     <a href ="{{ url_for('show_item', product_ID=item.product_ID)}}"> <img src="{{item.picture_URL}}" class="card-img-top" alt="..."></a>
                 <div class="card-body">
-                    <a href="{{ url_for('show_item', product_ID=item.product_ID)}}" class="card-link">{{item.product_name}}</a>
+                    <a href="{{ url_for('show_item', product_ID=item.product_ID)}}" class="card-link"><font color="#705563">{{item.product_name}}</font></a>
                     <br/>
-                <a href="{{ url_for('show_item', product_ID=item.product_ID)}}" class="card-link">NT&#36; {{item.product_price}}</a>
+                    <a href="{{ url_for('show_item', product_ID=item.product_ID)}}" class="card-link"><font color="#b390a3">NT&#36; {{item.product_price}}</font></a>
                 </div>
                 </div>
         {% endfor %}

@@ -40,5 +40,5 @@ class LoginForm(FlaskForm):
     email = StringField(
         "Email", validators=[DataRequired(), Email(message="輸入email.")]
     )
-    password = PasswordField("Password", validators=[DataRequired()])
+    password = PasswordField("密碼", validators=[DataRequired()])
     submit = SubmitField("登入")

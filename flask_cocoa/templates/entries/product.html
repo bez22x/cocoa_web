@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
     {% block body %}
+<br/>
 <div class="container" xmlns="http://www.w3.org/1999/html">
         <div class="row">
             <div class="col">
@@ -7,39 +8,52 @@
             </div>
             <div class="col">
                 <div>
-                    {{ item.product_name }}
+                    <font color="#705563"><h4>{{ item.product_name }}</h4></font>
                 </div>
                 <div>
-                    NT$ {{ item.product_price }}
+                    <font color="#705563"><h5>NT$ {{ item.product_price }}</h5></font>
                 </div>
-                <form method='post', action="{{ url_for('add_cart') }}">
-                    <input name='quantity' type="number" value="1">
-                    <input type="hidden" name="id" value="{{ item.product_ID }}"/>
                 <br/>
+                <form method='post', action="{{ url_for('add_cart') }}">
+                    <input class="form-control-lg" name='quantity' type="number" value="1">
+                    <input type="hidden" name="id" value="{{ item.product_ID }}"/>
+                <br/><br/>
                 <div>
-                    <button type="submit" class="btn btn-outline-secondary">加入購物車</button>
+                    <button type="submit" class="btn btn-outline-secondary btn-lg">加入購物車</button>
                 </div>
                 </form>
                 <div>
-                    {{ item.product_description }}
-                </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            您可能會喜歡
-        </div>
-        <div class="row row-cols-4">
-            {% for items in data %}
-                <div class="card" style="width: 15rem;">
-                    <a href ="{{ url_for('show_item', product_ID=items.product_ID)}}"> <img src="{{items.picture_URL}}" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                    <a href="{{ url_for('show_item', product_ID=items.product_ID)}}" class="card-link">{{items.product_name}}</a>
                     <br/>
-                <a href="{{ url_for('show_item', product_ID=items.product_ID)}}" class="card-link">價格:{{items.product_price}}</a>
+                    <figcaption class="blockquote-footer">
+                        <h5>{{ item.product_description }}</h5>
+                    </figcaption>
+
                 </div>
                 </div>
-            {% endfor %}
             </div>
-    </div>
+        </div>
+
+
+        <div class="row-col">
+            <p style="background:#a77188"><h4><i class="bi bi-suit-heart-fill"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffffff" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+            <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+            </svg><font color="#ffffff">
+               您可能會喜歡</font></h4></p>
+
+
+        <div class="card-group">
+            {% for items in data %}
+          <div class="card-text" >
+              <br/>
+            <a href ="{{ url_for('show_item', product_ID=items.product_ID)}}"> <img src="{{items.picture_URL}}" class="card-img-top" alt="..."></a>
+            <div class="card-body">
+              <a href="{{ url_for('show_item', product_ID=items.product_ID)}}" class="card-link"><font color="#444444"> {{items.product_name}}</font></a>
+                <br/>
+              <a href="{{ url_for('show_item', product_ID=items.product_ID)}}" class="card-link"><font color="#444444">價格:{{items.product_price}}</font></a>
+            </div>
+          </div>
+            {% endfor %}
+          </div>
+            </div>
     {% endblock %}

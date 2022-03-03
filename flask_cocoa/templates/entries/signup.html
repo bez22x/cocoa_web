@@ -10,26 +10,23 @@
     <div class="logo">
       <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="logo"/>
     </div>
-
-    <h1>建立您的專屬會員帳戶</h1>
-
+    <br/>
+    <div class="text"><font color="#5d4250"> <h4>建立您的專屬會員帳戶</h4></font></div>
     <form method="POST" action="/signup">
-      {{ form.csrf_token }}
-
       <fieldset class="name">
         {{ form.name.label }}
-        {{ form.name(placeholder='您的名字') }}
+        &emsp;{{ form.name(placeholder='您的名字') }}
         {% if form.name.errors %}
           <ul class="errors">
-            {% for error in form.email.errors %}
+            {% for error in form.name.errors %}
               <li>{{ error }}</li>{% endfor %}
           </ul>
         {% endif %}
       </fieldset>
-
+      <br/>
       <fieldset class="email">
         {{ form.email.label }}
-        {{ form.email(placeholder='youremail@example.com') }}
+        &emsp;{{ form.email(placeholder='youremail@example.com') }}
         {% if form.email.errors %}
           <ul class="errors">
             {% for error in form.email.errors %}
@@ -37,10 +34,10 @@
           </ul>
         {% endif %}
       </fieldset>
-
+<br/>
       <fieldset class="password">
         {{ form.password.label }}
-        {{ form.password }}
+        &emsp;{{ form.password }}
         {% if form.password.errors %}
           <ul class="errors">
             {% for error in form.password.errors %}
@@ -48,10 +45,10 @@
           </ul>
         {% endif %}
       </fieldset>
-
+<br/>
       <fieldset class="confirm">
         {{ form.confirm.label }}
-        {{ form.confirm }}
+        &emsp;{{ form.confirm }}
         {% if form.confirm.errors %}
           <ul class="errors">
             {% for error in form.confirm.errors %}
@@ -59,14 +56,14 @@
           </ul>
         {% endif %}
       </fieldset>
-
+<br/>
       <fieldset class="address">
         {{ form.address.label }}
-        {{ form.address }}
+        &emsp;{{ form.address }}
       </fieldset>
-
+<br/>
       <div class="submit-button">
-        {{ form.submit }}
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{ form.submit }}
       </div>
 
     </form>
