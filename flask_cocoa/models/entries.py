@@ -1,7 +1,9 @@
 from flask_cocoa import db
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
+
+tz = timezone(timedelta(hours=+8))
 
 
 class Product(db.Model):
@@ -51,6 +53,6 @@ class Order(db.Model):
         self.product_id = product_id
         self.transaction_id = transaction_id
         self.quantity = quantity
-        self.created_on = datetime.utcnow()
+        self.created_on = datetime.now(tz)
         self.user_id = user_id
 

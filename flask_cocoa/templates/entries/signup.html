@@ -1,70 +1,72 @@
-{% extends 'layout.html' %}
+{% extends "layout.html" %}
+
+{% block pagestyles %}
+  <link href="{{ url_for('static', filename='css/account.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
 
 {% block body %}
-  <div class='form-wrapper'>
-    <div class='logo'>
-      <img src='{{ url_for('static', filename='img/logo.jpeg') }}' alt='logo'>
+  <div class="form-wrapper">
+
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="logo"/>
     </div>
     <br/>
-    <div class='text'>
-      <font color='#5d4250'> <h4>建立您的專屬會員帳戶</h4></font>
-    </div>
-    <form method='POST' action='/signup'>
-      <fieldset class='name'>
+    <div class="text"><font color="#5d4250"> <h4>建立您的專屬會員帳戶</h4></font></div>
+    <form method="POST" action="/signup">
+      {{ form.csrf_token }}
+      <fieldset class="name">
         {{ form.name.label }}
         &emsp;{{ form.name(placeholder='您的名字') }}
         {% if form.name.errors %}
-          <ul class='errors'>
+          <ul class="errors">
             {% for error in form.name.errors %}
               <li>{{ error }}</li>{% endfor %}
           </ul>
         {% endif %}
       </fieldset>
       <br/>
-      <fieldset class='email'>
+      <fieldset class="email">
         {{ form.email.label }}
         &emsp;{{ form.email(placeholder='youremail@example.com') }}
         {% if form.email.errors %}
-          <ul class='errors'>
+          <ul class="errors">
             {% for error in form.email.errors %}
-              <li>{{ error }}</li>
-            {% endfor %}
+              <li>{{ error }}</li>{% endfor %}
           </ul>
         {% endif %}
       </fieldset>
-      <br/>
-      <fieldset class='password'>
+<br/>
+      <fieldset class="password">
         {{ form.password.label }}
         &emsp;{{ form.password }}
         {% if form.password.errors %}
-          <ul class='errors'>
+          <ul class="errors">
             {% for error in form.password.errors %}
-              <li>{{ error }}</li>
-            {% endfor %}
+              <li>{{ error }}</li>{% endfor %}
           </ul>
         {% endif %}
       </fieldset>
-      <br/>
-      <fieldset class='confirm'>
+<br/>
+      <fieldset class="confirm">
         {{ form.confirm.label }}
         &emsp;{{ form.confirm }}
         {% if form.confirm.errors %}
-          <ul class='errors'>
+          <ul class="errors">
             {% for error in form.confirm.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
+              <li>{{ error }}</li>{% endfor %}
           </ul>
         {% endif %}
       </fieldset>
-      <br/>
-      <fieldset class='address'>
+<br/>
+      <fieldset class="address">
         {{ form.address.label }}
         &emsp;{{ form.address }}
       </fieldset>
-      <br/>
-      <div class='submit-button'>
+<br/>
+      <div class="submit-button">
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{ form.submit }}
       </div>
+
     </form>
   </div>
 {% endblock %}

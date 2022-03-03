@@ -123,6 +123,7 @@ def del_product(item_id):
 @login_required
 def check_out():
     transaction_id = uuid.uuid4()
+
     for key, value in session['cart_item'].items():
         order = Order(
             product_id=int(key),
@@ -141,7 +142,10 @@ def check_out():
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     form = SignupForm()
+    print("123")
+    print(form.validate_on_submit())
     if form.validate_on_submit():
+        print("456")
         existing_user = User.query.filter_by(email=form.email.data).first()
         if existing_user is None:
             user = User(
