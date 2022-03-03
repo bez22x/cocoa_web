@@ -1,4 +1,5 @@
-
+db_storage/mongoDB/data/diagnostic.data/*
+db_storage/mongoDB/data/journal/*
 db_storage/mongoDB/data/WiredTiger.turtle
 *.wt
 *.interim
