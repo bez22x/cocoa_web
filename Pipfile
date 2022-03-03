@@ -14,6 +14,8 @@ email-validator = "*"
 flask-script = "==2.0.5"
 pymongo = "*"
 flask-pymongo = "*"
+pandas = "*"
+pyasrule = "*"
 
 [dev-packages]
 
