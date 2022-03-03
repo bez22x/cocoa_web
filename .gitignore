@@ -1,0 +1,4 @@
+
+db_storage/mongoDB/data/WiredTiger.turtle
+*.wt
+*.interim
