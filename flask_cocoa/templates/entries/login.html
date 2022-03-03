@@ -42,13 +42,14 @@
       <div class="submit-button">
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{ form.submit }}
       </div>
-      {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages() %}
         {% if messages %}
-          <ul class="flash">
-              {% for message in messages %}
-                <li>{{ messages }}</li>
-              {% endfor %}
-          </ul>
+        {% for message in messages %}
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+          {{ messages }}
+          {% endfor %}
+        </div>
+        </div>
         {% endif %}
       {% endwith %}
       <br/>

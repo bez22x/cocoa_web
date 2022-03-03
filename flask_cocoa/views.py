@@ -172,7 +172,7 @@ def login():
             login_user(user)
             # next_page = request.args.get("next")
             return redirect(url_for("home_page"))
-        flash("無效的帳號或密碼")
+        flash("無效的帳號或密碼 請重新輸入")
         return redirect(url_for("login"))
     return render_template(
         "entries/login.html",
@@ -198,5 +198,5 @@ def load_user(user_id):
 @login_manager.unauthorized_handler
 def unauthorized():
     # Redirect unauthorized users to Login page
-    flash("You must be logged in to view that page.")
+    flash("您必須先登入")
     return redirect(url_for("login"))

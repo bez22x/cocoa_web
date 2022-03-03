@@ -27,14 +27,4 @@
           </div>
         </div>
         {% endfor %}
-
-
-        {% for item in items %}
-        <div class="grid">
-            <div class="g-col-6">TOP {{ loop.index }}</div>
-            <div class="g-col-6"><a href ="{{ url_for('show_item', product_ID=item.product_ID)}}"> <img class='cart' src="{{item.picture_URL}}" class="cart" alt="..."></a></div>
-            <div class="g-col-6"><a href="{{ url_for('show_item', product_ID=item.product_ID)}}" class="card-link">{{item.product_name}}</a></div>
-            <div class="g-col-6"><a href="{{ url_for('show_item', product_ID=item.product_ID)}}" class="card-link">價格:{{item.product_price}}</a></div>
-        </div>
-        {% endfor %}
     {% endblock %}
