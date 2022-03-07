@@ -2,10 +2,16 @@ import pymysql, pymongo
 import pandas as pd
 import datetime as dt
 import pyasrule as rule
+import os
 
+mongo_host = os.environ.get('MONGO_HOST', 'localhost')
+mongo_port = int(os.environ.get('MONGO_PORT', 27017))
+mongo_password = os.environ.get('MONGO_PASSWORD', 'my-secret-pw')
+mysql_host = os.environ.get('MYSQL_HOST', 'localhost')
+mysql_port = int(os.environ.get('MYSQL_PORT', 3306))
 
 def run():
-    myclient = pymongo.MongoClient("mongodb://localhost:27018/")
+    myclient = pymongo.MongoClient(f'mongodb://root:{mongo_password}@{mongo_host}:{mongo_port}/cocoa?authSource=admin')
     mydb = myclient["cocoa"]
 
     mydb.if_you_like.drop()
@@ -16,12 +22,12 @@ def run():
 
     SQL_Query = query_transaction_data_last_week(one_week_ago)
     new_df = transform_to_tc_data_df(SQL_Query)
-    tc_data_df = pd.read_csv('./tc_data_df.csv')
+    tc_data_df = pd.read_csv('./data/tc_data_df.csv')
     tc_data_df['Transaction'] = tc_data_df['Transaction'].to_string()
     tc_data_df = tc_data_df.append(new_df)
-    tc_data_df.to_csv('tc_data_df.csv', index=False)
+    tc_data_df.to_csv('./data/tc_data_df.csv', index=False)
 
-    items = pd.read_csv('./tc_product.csv')
+    items = pd.read_csv('./data/tc_product.csv')
     items = list(items['product_name'])
     arule = rule.AssociationRules()
     arule.generateRules(transaction_df=tc_data_df, item_col="Item", transaction_id="Transaction")
@@ -45,7 +51,7 @@ def run():
 
 
 def query_transaction_data_last_week(week_ago):
-    dbcon = pymysql.connect(host="127.0.0.1", port=3308, user="root", passwd="my-secret-pw", db='tc_store_new',
+    dbcon = pymysql.connect(host=mysql_host, port=mysql_port, user="root", passwd="my-secret-pw", db='tc_store_new',
                             charset='utf8')
     SQL_Query = pd.read_sql_query(
         f'''SELECT transaction_id, product_name, quantity
@@ -58,7 +64,7 @@ def query_transaction_data_last_week(week_ago):
 
 
 def get_product_map():
-    dbcon = pymysql.connect(host="127.0.0.1", port=3308, user="root", passwd="my-secret-pw", db='tc_store_new',
+    dbcon = pymysql.connect(host=mysql_host, port=mysql_port, user="root", passwd="my-secret-pw", db='tc_store_new',
                             charset='utf8')
     product_map_df = pd.read_sql_query(
         '''SELECT product_ID, product_name
@@ -80,3 +86,4 @@ def transform_to_tc_data_df(SQL_Query):
 
 if __name__ == '__main__':
     run()
+    print("Success")

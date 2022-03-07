@@ -10,6 +10,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\processing\data\tc_data_df.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\processing\data\tc_product.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\processing\tc_product.csv">
           <value>
             <Attribute>
