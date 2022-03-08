@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+    {% block body %}
+    <style>
+        body {
+            background-color:#eeeeee
+        }
+    </style>
+
+    <br/>
+    <h1>智能選豆Show</h1>
+    <img style="width: 600px;height: 400px;" src="{{ url_for('video_feed') }}">
+{% endblock %}

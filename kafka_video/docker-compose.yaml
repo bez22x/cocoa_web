@@ -1,0 +1,43 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  # producer:
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile.producer
+  #   environment:
+  #     KAFKA_HOST: kafka
+  #   depends_on:
+  #     - kafka
+#  consumer:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.consumer
+#    environment:
+#      KAFKA_HOST: kafka
+#      KAFKA_PORT: 9092
+#      KAFKA_TOPIC: TopicA
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - kafka
+  zookeeper:                                          # create zookeeper container
+        image: wurstmeister/zookeeper
+        container_name: zookeeper_container
+        ports:
+            - "2181:2181"                               # expose port
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka_container
+    ports:
+        - "9092:9092"
+        - "9093:9093"                               # expose port
+    environment:
+        KAFKA_ADVERTISED_HOST_NAME: kafka           # specify the docker host IP at which other containers can reach the broker
+        KAFKA_CREATE_TOPICS: "TopicA:1:1"           # create a topic called 'TopicA"  with 1 partition and 1 replica
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181     # specify where the broker can reach Zookeeper
+        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL_PLAINTEXT:PLAINTEXT,EXTERNAL_PLAINTEXT:PLAINTEXT"
+        KAFKA_LISTENERS: "INTERNAL_PLAINTEXT://0.0.0.0:9092,EXTERNAL_PLAINTEXT://0.0.0.0:9093"        # the list of addresses on which the Kafka broker will listen on for incoming connections.
+        KAFKA_ADVERTISED_LISTENERS: "INTERNAL_PLAINTEXT://kafka:9092,EXTERNAL_PLAINTEXT://localhost:9093"  # Kafka sends the value of this variable to clients during their connection. After receiving that value, the clients use it for sending/consuming records to/from the Kafka broker.y connect to it.
+        KAFKA_INTER_BROKER_LISTENER_NAME: "INTERNAL_PLAINTEXT"
+    depends_on:
+      - zookeeper

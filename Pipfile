@@ -16,6 +16,7 @@ pymongo = "*"
 flask-pymongo = "*"
 pandas = "*"
 pyasrule = "*"
+kafka-python = "==1.4.6"
 
 [dev-packages]
 

@@ -1,14 +1,65 @@
+import threading
 from typing import Dict, Any, Union
+import os
+import time
 
-from flask import request, redirect, url_for, render_template, flash, session
+
+from flask import request, redirect, url_for, render_template, flash, session, Response
 from flask_cocoa import app
 from flask_cocoa import db, mongo
 from flask_cocoa.forms import SignupForm, LoginForm
 from flask_cocoa.models.entries import Product, User, Order
 from flask_login import current_user, login_user, login_required, logout_user
 from flask_cocoa import login_manager
+from kafka import KafkaConsumer
 import uuid
 
+kafka_port = int(os.environ['KAFKA_PORT'])
+kafka_host = os.environ["KAFKA_HOST"]
+consumer = KafkaConsumer(
+    os.environ['KAFKA_TOPIC'],
+    bootstrap_servers=f'{kafka_host}:{kafka_port}',
+    auto_offset_reset='latest',
+    api_version=(2, 8, 1))
+
+
+class threadsafe_iter:
+    """Takes an iterator/generator and makes it thread-safe by
+    serializing call to the `next` method of given iterator/generator.
+    """
+
+    def __init__(self, it):
+        self.it = it
+        self.lock = threading.Lock()
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):  # python3
+        with self.lock:
+            return self.it.__next__()
+
+    # def next(self): # python2
+    #     with self.lock:
+    #       return self.it.next()
+
+
+def threadsafe_generator(f):
+    """A decorator that takes a generator function and makes it thread-safe.
+    """
+
+    def g(*a, **kw):
+        return threadsafe_iter(f(*a, **kw))
+
+    return g
+
+
+@threadsafe_generator
+def kafka_stream():
+    for message in consumer:
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + message.value + b'\r\n\r\n')
+        time.sleep(0.01)
 
 @app.route('/')
 def home_page():
@@ -20,7 +71,8 @@ def home_page():
 def show_item(product_ID):
     item = Product.query.filter_by(product_ID=str(product_ID)).first()
     like_item = mongo.db.if_you_like.find_one({'product_id': product_ID})
-    like_items = [Product.query.filter_by(product_ID=product_id).first() for product_id in like_item['collaborative_filtering_list']]
+    like_items = [Product.query.filter_by(product_ID=product_id).first() for product_id in
+                  like_item['collaborative_filtering_list']]
     return render_template('entries/product.html', item=item, data=like_items)
 
 
@@ -119,6 +171,7 @@ def del_product(item_id):
     session['all_total_price'] = all_total_price
     return redirect(request.referrer)
 
+
 @app.route('/check_out')
 @login_required
 def check_out():
@@ -185,6 +238,17 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("login"))
+
+
+@app.route("/coco_show")
+def coco_show():
+    return render_template('entries/coco_show.html')
+
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(threadsafe_iter(kafka_stream()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @login_manager.user_loader
