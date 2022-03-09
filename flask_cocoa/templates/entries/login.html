@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-
+<div class="text-center"
   <div class="form-wrapper">
 
     <div class="logo">
@@ -16,7 +16,6 @@
 
     <form method="POST" action="/login">
       {{ form.csrf_token }}
-    <br/>
       <fieldset class="email">
         {{ form.email.label }}
         &emsp;{{ form.email(placeholder='youremail@example.com') }}
@@ -52,7 +51,6 @@
         </div>
         {% endif %}
       {% endwith %}
-      <br/>
       <div class="login-signup">
         <span><font color="#5d4250"><h6>還沒有帳號嗎? </h6></font>
           <a href="{{ url_for('signup') }}" class="link-success">註冊帳號</a></span>
@@ -60,4 +58,5 @@
 
     </form>
   </div>
+</div>
 {% endblock %}

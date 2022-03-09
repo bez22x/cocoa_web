@@ -20,6 +20,7 @@ consumer = KafkaConsumer(
     os.environ['KAFKA_TOPIC'],
     bootstrap_servers=f'{kafka_host}:{kafka_port}',
     auto_offset_reset='latest',
+    enable_auto_commit=False,
     api_version=(2, 8, 1))
 
 
@@ -60,6 +61,7 @@ def kafka_stream():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + message.value + b'\r\n\r\n')
         time.sleep(0.01)
+
 
 @app.route('/')
 def home_page():

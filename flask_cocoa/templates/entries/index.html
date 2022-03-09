@@ -4,12 +4,13 @@
      xmlns="http://www.w3.org/1999/html">
         <figure class="text-center">
         <blockquote class="blockquote">
-            <p style="background:#ddc7d0">
+            <h6><p style="background:#ddc7d0">
                 <br/>
                 TC巧舖的巧克力，去年拿下英國皇家學院巧克力大賽（AOC）銀牌，前年還摘下世界巧克力大賽（ICA）亞太區金牌。兩年前，<br/>
                 麵包大師吳寶春造訪TC巧舖，一吃到巧克力薄片竟愛不釋手：「巧克力一入口，便釋出令人舒坦的微酸，而入口即化的口感更令人難忘。」<br/>
                 在吳寶春推文下，TC巧克力一路紅到日本，識貨的日客甚至慕名來台造訪。(遠見及天下雜誌)
-            </p>
+                <br/><br/>
+            </p></h6>
             </blockquote>
         </figure>
 <br/>
@@ -21,7 +22,7 @@
     <div class="container">
         <div class="row row-cols-4">
         {% for items in data %}
-            <div class="card border-light mb-3" style="width: 15rem;">
+            <div class="card border-light mb-3" style="width: 14.5rem;">
                     <a href ="{{ url_for('show_item', product_ID=items.product_ID)}}"> <img src="{{items.picture_URL}}" class="card-img-top" alt="..."></a>
                 <div class="card-body">
                     <a href="{{ url_for('show_item', product_ID=items.product_ID)}}" class="card-link"><font color="#705563">{{items.product_name}}</font></a>

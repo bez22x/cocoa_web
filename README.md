@@ -26,7 +26,7 @@ docker run -p 3307:3306 -v ${PWD}/db_storage/mysql/data:/var/lib/mysql --name so
 
 * Run Flask
 ```shell
-docker run -d -p 80:8080 -e MYSQL_HOST=10.0.1.48 -e MYSQL_PASSWORD=my-secret-pw -e MYSQL_DB=tc_store_new -e MONGO_HOST=10.0.1.130 -e MONGO_PASSWORD=my-secret-pw  -e MONGO_DB=cocoa cocoa-flask
+docker run -d -p 80:8080 -e MYSQL_PASSWORD=my-secret-pw -e MYSQL_DB=tc_store_new -e MONGO_PASSWORD=my-secret-pw  -e MONGO_DB=cocoa cocoa-flask
 
 ```
 

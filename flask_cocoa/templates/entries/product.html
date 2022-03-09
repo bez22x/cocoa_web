@@ -15,7 +15,7 @@
                 </div>
                 <br/>
                 <form method='post', action="{{ url_for('add_cart') }}">
-                    <input class="form-control-lg" name='quantity' type="number" value="1">
+                    <input class="form-control-sm" name='quantity' type="number" min="1" value="1" oninput="validity.valid||(value='');">
                     <input type="hidden" name="id" value="{{ item.product_ID }}"/>
                 <br/><br/>
                 <div>
@@ -25,7 +25,7 @@
                 <div>
                     <br/>
                     <figcaption class="blockquote-footer">
-                        <h5>{{ item.product_description }}</h5>
+                        <h6>{{ item.product_description }}</h6>
                     </figcaption>
 
                 </div>
@@ -44,7 +44,7 @@
 
         <div class="card-group">
             {% for items in data %}
-          <div class="card-text" >
+          <div class="card-text" style="width: 12.5rem;">
               <br/>
             <a href ="{{ url_for('show_item', product_ID=items.product_ID)}}"> <img src="{{items.picture_URL}}" class="card-img-top" alt="..."></a>
             <div class="card-body">

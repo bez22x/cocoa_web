@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+<div class="text-center">
   <div class="form-wrapper">
 
     <div class="logo">
@@ -13,6 +14,7 @@
     <br/>
     <div class="text"><font color="#5d4250"> <h4>建立您的專屬會員帳戶</h4></font></div>
     <form method="POST" action="/signup">
+      {{ form.csrf_token }}
       <fieldset class="name">
         {{ form.name.label }}
         &emsp;{{ form.name(placeholder='您的名字') }}
@@ -67,5 +69,6 @@
       </div>
 
     </form>
+  </div>
   </div>
 {% endblock %}

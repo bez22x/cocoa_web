@@ -1,12 +1,14 @@
 import os
 
-os.environ['KAFKA_HOST'] = '127.0.0.1'
+os.environ['KAFKA_HOST'] = '172.20.10.9'
 os.environ['KAFKA_PORT'] = '9093'
 os.environ['KAFKA_TOPIC'] = 'TopicA'
 
-os.environ['MYSQL_HOST'] = '18.180.227.212'
+# os.environ['MYSQL_HOST'] = '18.180.227.212'
+os.environ['MYSQL_HOST'] = '10.0.1.48'
 os.environ['MYSQL_PORT'] = '3306'
-os.environ['MONGO_HOST'] = '35.73.202.11'
+# os.environ['MONGO_HOST'] = '35.73.202.11'
+os.environ['MONGO_HOST'] = '10.0.1.130'
 os.environ['MONGO_PORT'] = '27017'
 
 mysql_host = os.environ.get('MYSQL_HOST', 'localhost')
