@@ -24,38 +24,7 @@ consumer = KafkaConsumer(
     api_version=(2, 8, 1))
 
 
-class threadsafe_iter:
-    """Takes an iterator/generator and makes it thread-safe by
-    serializing call to the `next` method of given iterator/generator.
-    """
 
-    def __init__(self, it):
-        self.it = it
-        self.lock = threading.Lock()
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):  # python3
-        with self.lock:
-            return self.it.__next__()
-
-    # def next(self): # python2
-    #     with self.lock:
-    #       return self.it.next()
-
-
-def threadsafe_generator(f):
-    """A decorator that takes a generator function and makes it thread-safe.
-    """
-
-    def g(*a, **kw):
-        return threadsafe_iter(f(*a, **kw))
-
-    return g
-
-
-@threadsafe_generator
 def kafka_stream():
     for message in consumer:
         yield (b'--frame\r\n'
@@ -249,7 +218,7 @@ def coco_show():
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(threadsafe_iter(kafka_stream()),
+    return Response(kafka_stream(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
